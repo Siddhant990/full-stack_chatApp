@@ -1,8 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: chatapp-deployment
   namespace: chat-app
+  labels:
+    app: chat-app
 spec:
   replicas: 1
   selector:
@@ -12,12 +14,12 @@ spec:
     metadata:
       name: backend-pod
       namespace: chat-app
-      labels: 
+      labels:
         app: backend
     spec:
       containers:
       - name: chatapp-backend
-        image: trainwithshubham/chatapp-backend:latest
+        image: siddhant7000/chatapp-backend
         ports:
         - containerPort: 5001
         env:
@@ -26,9 +28,6 @@ spec:
         - name: MONGODB_URI
           value: "mongodb://mongoadmin:secret@mongodb:27017/dbname?authSource=admin"
         - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: chatapp-secrets
-              key: jwt 
+          value: "YmY2OWY4NWVkOWE2OWEzZmM3OTRjM2MyNDk1MjhmNWMyZThmYjgxZmNiNzllOTY5MDlhMmZkOGZiNmYwYzMxYWNlZmUzMjA4ZTFkNjIyMDE0NjhhMjI3NWYzMGJiMmU2ZDdhMzhlMjkzYWNhOWZlNDA3MDg1NWYwYzQ0MWQ5YTlkOGZmN2UzNDUyNmI5NGJhNTA0MjcxNDlkNGMxODYyN2I3ZDg5MGZhMTIyNjExZDYwOTBiMzQ0MTk0OWFiZGE1YmNhOTBiZmZiYTU3OGY0NTlkOWQ0YTA3NjU5YzFkODlmMzc4YjQwNTkzM2E0NzY4MmNmN2E0MjlhMWE3YmFhMWJhZjY5NTRiNjY2MmFjYTY4NmYxNTk5Mjg1MDYwMjg2MzA4NzYwMTM0NDVhMTQ0MjljZDk2Mzk0NTc4NzA4Y2Y1NzVhZDc2NzVhZWM4ZTQ5NDMwYjBhMGRiZTQwMzZkY2E1N2JjMzQ2NDk4NjU3MDU1ZWM2ODYzZjQ4NzRhNzZiODdmOGU5NTIzN2U0MThjNzQxNWU3ODlkNjQ5ZDE5ODQ1NjM0ZjYwMTdiNjQ1MmVhMmJiNGNlNjliYjIyOTAzMzI3MWY1NTkzMzJmNWQ0YjRkMmVlMGFmZDJjNjAyYjM5Mjc2OWI0ZDUwNTA3YjIxMTBkMTA0NmVlNDA1YWE2MWE="
         - name: PORT
           value: "5001"

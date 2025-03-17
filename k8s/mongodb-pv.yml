@@ -8,5 +8,9 @@ spec:
     - ReadWriteOnce
   capacity:
     storage: 5Gi
+  volumeMode: Filesystem
+  
+  persistentVolumeReclaimPolicy: Recycle
   hostPath:
-    path: /data
+    path: /data 
+  
